@@ -1,0 +1,160 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Student user profile and account authorization status",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 100 },
+        "course": { "type": "string", "maxLength": 100 },
+        "username": { "type": "string", "maxLength": 50 },
+        "passwordHash": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["student"] },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "approvedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["studentId", "name", "email", "course", "username", "role", "status"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator account profile",
+      "type": "object",
+      "properties": {
+        "adminId": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 100 },
+        "department": { "type": "string", "maxLength": 100 },
+        "username": { "type": "string", "maxLength": 50 },
+        "passwordHash": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["admin"] },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["adminId", "name", "email", "username", "role"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "College workshop, seminar or academic event",
+      "type": "object",
+      "properties": {
+        "eventId": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "enum": ["Workshop", "Seminar", "Hackathon", "Guest Lecture", "Conference", "Academic"] },
+        "date": { "type": "string", "maxLength": 20 },
+        "time": { "type": "string", "maxLength": 20 },
+        "endTime": { "type": "string", "maxLength": 20 },
+        "venue": { "type": "string", "maxLength": 150 },
+        "maxCapacity": { "type": "number" },
+        "participantCount": { "type": "number" },
+        "status": { "type": "string", "enum": ["open", "closed", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "createdBy": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["eventId", "name", "description", "category", "date", "time", "venue", "maxCapacity", "status"]
+    },
+    "Registration": {
+      "title": "Registration",
+      "description": "Student event registration and attendance record",
+      "type": "object",
+      "properties": {
+        "registrationId": { "type": "string", "maxLength": 64 },
+        "studentId": { "type": "string", "maxLength": 64 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "studentEmail": { "type": "string", "maxLength": 100 },
+        "studentCourse": { "type": "string", "maxLength": 100 },
+        "eventId": { "type": "string", "maxLength": 64 },
+        "eventName": { "type": "string", "maxLength": 150 },
+        "eventDate": { "type": "string", "maxLength": 20 },
+        "eventTime": { "type": "string", "maxLength": 20 },
+        "eventVenue": { "type": "string", "maxLength": 150 },
+        "registrationDate": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["Pending", "Approved", "Rejected"] },
+        "approvalDate": { "type": "string", "maxLength": 50 },
+        "attendanceStatus": { "type": "string", "enum": ["Pending", "Attended", "Absent"] },
+        "calendarEventId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["registrationId", "studentId", "eventId", "registrationDate", "status", "attendanceStatus"]
+    },
+    "Certificate": {
+      "title": "Certificate",
+      "description": "Digital completion or attendance certificate",
+      "type": "object",
+      "properties": {
+        "certificateId": { "type": "string", "maxLength": 64 },
+        "studentId": { "type": "string", "maxLength": 64 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "eventId": { "type": "string", "maxLength": 64 },
+        "eventName": { "type": "string", "maxLength": 150 },
+        "eventDate": { "type": "string", "maxLength": 20 },
+        "issueDate": { "type": "string", "maxLength": 50 },
+        "certificateStatus": { "type": "string", "enum": ["Issued", "Revoked"] },
+        "verificationCode": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["certificateId", "studentId", "eventId", "studentName", "eventName", "issueDate", "certificateStatus"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "In-app alerts for registration status and event news",
+      "type": "object",
+      "properties": {
+        "notificationId": { "type": "string", "maxLength": 64 },
+        "recipientId": { "type": "string", "maxLength": 64 },
+        "recipientRole": { "type": "string", "enum": ["student", "admin"] },
+        "title": { "type": "string", "maxLength": 150 },
+        "message": { "type": "string", "maxLength": 1000 },
+        "type": { "type": "string", "enum": ["registration", "approval", "rejection", "event_update", "pass_available", "certificate_available", "account_approval"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["notificationId", "recipientId", "recipientRole", "title", "message", "type", "read", "createdAt"]
+    },
+    "EmailLog": {
+      "title": "EmailLog",
+      "description": "Log of emails sent regarding approvals and rejections",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string", "maxLength": 64 },
+        "to": { "type": "string", "maxLength": 100 },
+        "subject": { "type": "string", "maxLength": 200 },
+        "body": { "type": "string", "maxLength": 5000 },
+        "status": { "type": "string", "enum": ["sent", "queued", "simulated"] },
+        "sentAt": { "type": "string", "maxLength": 50 },
+        "eventId": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["logId", "to", "subject", "body", "status", "sentAt"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Student profiles and account approval requests"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Administrator profiles"
+    },
+    "/events/{eventId}": {
+      "schema": "Event",
+      "description": "College workshops, seminars, and academic events"
+    },
+    "/registrations/{registrationId}": {
+      "schema": "Registration",
+      "description": "Student event registration requests and attendance tracking"
+    },
+    "/certificates/{certificateId}": {
+      "schema": "Certificate",
+      "description": "Digital completion certificates for attended events"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "In-app notifications for students and administrators"
+    },
+    "/emailLogs/{logId}": {
+      "schema": "EmailLog",
+      "description": "Records of notification emails sent to students"
+    }
+  }
+}

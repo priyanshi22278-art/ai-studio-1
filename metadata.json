@@ -1,0 +1,6 @@
+{
+  "name": "CampusEventFlow - AI Event Management & Academic Portal",
+  "description": "Full-stack AI-powered college event management system with real-time registrations, admin approvals, digital passes, QR attendance, certificates, and calendar sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

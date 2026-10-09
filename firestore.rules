@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    match /students/{studentId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /admins/{adminId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /events/{eventId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /registrations/{registrationId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /certificates/{certificateId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /notifications/{notificationId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /emailLogs/{logId} {
+      allow read, create, update, delete: if true;
+    }
+  }
+}
